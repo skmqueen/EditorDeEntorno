@@ -25,24 +25,15 @@ public class CrearObjetoEstado : IEstado
     public void Ejecutar(Controlador controlador)
     {
         if (objetoInstanciado == null) return;
+        if (Camera.main == null) return;
 
-        Camera cam = Camera.main;
-        if (cam == null) return;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-
+        // Raycast contra el suelo
         if (Physics.Raycast(ray, out RaycastHit hit, distanciaMaxima, suelo))
         {
-            Vector3 nuevaPos = hit.point;
-
-            Collider col = objetoInstanciado.GetComponent<Collider>();
-            if (col != null)
-            {
-                // Coloca el prefab exactamente sobre el suelo según su collider
-                nuevaPos.y += col.bounds.extents.y;
-            }
-
-            objetoInstanciado.transform.position = nuevaPos;
+            // Coloca el objeto directamente sobre el suelo
+            objetoInstanciado.transform.position = hit.point;
 
             Debug.DrawLine(ray.origin, hit.point, Color.green);
         }
@@ -51,9 +42,18 @@ public class CrearObjetoEstado : IEstado
             Debug.DrawRay(ray.origin, ray.direction * distanciaMaxima, Color.red);
         }
 
+        // Confirmar colocación con clic izquierdo
         if (Input.GetMouseButtonDown(0))
         {
             objetoInstanciado.layer = 0; // Default
+            controlador.CambiarEstado(new EstadoNeutral());
+        }
+
+        // Cancelar con clic derecho
+        if (Input.GetMouseButtonDown(1))
+        {
+            GameObject.Destroy(objetoInstanciado);
+            objetoInstanciado = null;
             controlador.CambiarEstado(new EstadoNeutral());
         }
     }
@@ -62,5 +62,8 @@ public class CrearObjetoEstado : IEstado
     {
         if (Menus.Instance != null)
             Menus.Instance.DesactivarTodos();
+        objetoInstanciado = null;
     }
 }
+
+

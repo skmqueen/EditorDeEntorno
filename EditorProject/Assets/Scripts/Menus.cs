@@ -3,7 +3,7 @@ using UnityEngine;
 public class Menus : MonoBehaviour
 {
     public static Menus Instance { get; private set; }
-   
+
     public GameObject menuPrincipal;
     public GameObject menuLateral;
     public GameObject mensajeCrear;
@@ -23,7 +23,7 @@ public class Menus : MonoBehaviour
 
     public void DesactivarTodos()
     {
-        menuPrincipal.SetActive(true);
+        menuPrincipal.SetActive(false);
         menuLateral.SetActive(false);
         mensajeCrear.SetActive(false);
         mensajeMover.SetActive(false);
@@ -34,35 +34,36 @@ public class Menus : MonoBehaviour
     public void PulsarCrear()
     {
         DesactivarTodos();
-        menuPrincipal.SetActive(false);
-        menuLateral.SetActive(true);
+        LeanTweenController.Instance.AnimarEntrada(menuLateral);
     }
 
     public void MensajeCrear()
     {
         DesactivarTodos();
-        menuPrincipal.SetActive(false);
-        mensajeCrear.SetActive(true);
+        LeanTweenController.Instance.AnimarEntrada(mensajeCrear);
     }
 
     public void MensajeMover()
     {
         DesactivarTodos();
-        menuPrincipal.SetActive(false);
-        mensajeMover.SetActive(true);
+        LeanTweenController.Instance.AnimarEntrada(mensajeMover);
     }
 
     public void MensajeEliminar()
     {
         DesactivarTodos();
-        menuPrincipal.SetActive(false);
-        mensajeEliminar.SetActive(true);
+        LeanTweenController.Instance.AnimarEntrada(mensajeEliminar);
     }
 
     public void MensajeRotar()
     {
         DesactivarTodos();
-        menuPrincipal.SetActive(false);
-        mensajeRotar.SetActive(true);
+        LeanTweenController.Instance.AnimarEntrada(mensajeRotar);
+    }
+
+    public void VolverMenuPrincipal()
+    {
+        DesactivarTodos();
+        LeanTweenController.Instance.AnimarEntrada(menuPrincipal);
     }
 }
