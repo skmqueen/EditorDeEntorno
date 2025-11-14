@@ -19,6 +19,15 @@ public class CrearObjetoEstado : IEstado
         {
             objetoInstanciado = GameObject.Instantiate(objetoPrefab);
             objetoInstanciado.layer = 2; // Ignore Raycast mientras lo colocas
+
+            // Hacer transparente 
+            Renderer rend = objetoInstanciado.GetComponentInChildren<Renderer>();
+            if (rend != null)
+            {
+                Color c = rend.material.color;
+                c.a = 0.3f; // 0 = invisible, 1 = opaco
+                rend.material.color = c;
+            }
         }
     }
 
@@ -29,10 +38,9 @@ public class CrearObjetoEstado : IEstado
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        // Raycast contra el suelo
         if (Physics.Raycast(ray, out RaycastHit hit, distanciaMaxima, suelo))
         {
-            // Coloca el objeto directamente sobre el suelo
+       
             objetoInstanciado.transform.position = hit.point;
 
             Debug.DrawLine(ray.origin, hit.point, Color.green);
@@ -45,6 +53,15 @@ public class CrearObjetoEstado : IEstado
         // Confirmar colocación con clic izquierdo
         if (Input.GetMouseButtonDown(0))
         {
+            // Poner el objeto en sólido (alpha 1)
+            Renderer rend = objetoInstanciado.GetComponentInChildren<Renderer>();
+            if (rend != null)
+            {
+                Color c = rend.material.color;
+                c.a = 1f;
+                rend.material.color = c;
+            }
+
             objetoInstanciado.layer = 0; // Default
             controlador.CambiarEstado(new EstadoNeutral());
         }
@@ -65,5 +82,3 @@ public class CrearObjetoEstado : IEstado
         objetoInstanciado = null;
     }
 }
-
-

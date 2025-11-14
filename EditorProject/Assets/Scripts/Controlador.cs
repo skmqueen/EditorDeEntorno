@@ -6,7 +6,6 @@ public class Controlador : MonoBehaviour
     public LayerMask sueloMask;
     public LayerMask seleccionableMask; // solo prefabs que se pueden mover/rotar/eliminar
 
-
     private IEstado estadoActual;
     private GameObject prefabSeleccionado;
 
@@ -51,10 +50,12 @@ public class Controlador : MonoBehaviour
     {
         CambiarEstado(new RotarObjetoEstado(this));
     }
+    public void PulsarTamano()
+    {
+        CambiarEstado(new TamanoObjetoEstado(this));
+    }
     public void PulsarEliminar()
     {
         CambiarEstado(new EliminarObjetoEstado(this));
     }
-
 }
-

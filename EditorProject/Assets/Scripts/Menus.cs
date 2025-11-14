@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Menus : MonoBehaviour
 {
@@ -11,6 +12,11 @@ public class Menus : MonoBehaviour
     public GameObject mensajeEliminar;
     public GameObject mensajeRotar;
 
+    // Arrays para animaciones
+    public Button[] botonesMenuPrincipal;
+    public Button[] botonesMenuLateral;
+    public Image[] imagenesMensajes;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -19,11 +25,14 @@ public class Menus : MonoBehaviour
             return;
         }
         Instance = this;
+
+        // Pop in inicial del menú principal al arrancar el juego
+        AnimarBotones(botonesMenuPrincipal);
     }
 
     public void DesactivarTodos()
     {
-        menuPrincipal.SetActive(false);
+        menuPrincipal.SetActive(true);
         menuLateral.SetActive(false);
         mensajeCrear.SetActive(false);
         mensajeMover.SetActive(false);
@@ -31,39 +40,103 @@ public class Menus : MonoBehaviour
         mensajeRotar.SetActive(false);
     }
 
+    // --- Animaciones internas ---
+    private void AnimarBotones(Button[] btns)
+    {
+        for (int i = 0; i < btns.Length; i++)
+        {
+            RectTransform rt = btns[i].GetComponent<RectTransform>();
+            rt.localScale = Vector3.zero;
+            LeanTween.scale(rt, Vector3.one, 0.4f)
+                .setEaseOutBack()
+                .setDelay(i * 0.1f); // efecto cascada
+        }
+    }
+
+    private void PopInImagen(Image img)
+    {
+        RectTransform rt = img.GetComponent<RectTransform>();
+        rt.localScale = Vector3.zero;
+        LeanTween.scale(rt, Vector3.one, 0.4f).setEaseOutBack();
+    }
+
+    private void PopOutImagen(Image img)
+    {
+        RectTransform rt = img.GetComponent<RectTransform>();
+        LeanTween.scale(rt, Vector3.zero, 0.3f).setEaseInBack()
+            .setOnComplete(() => img.gameObject.SetActive(false));
+    }
+
+    // --- Funciones como en tu script original ---
+
     public void PulsarCrear()
     {
         DesactivarTodos();
-        LeanTweenController.Instance.AnimarEntrada(menuLateral);
+        menuPrincipal.SetActive(false);
+        menuLateral.SetActive(true);
+
+        AnimarBotones(botonesMenuLateral);
     }
 
     public void MensajeCrear()
     {
         DesactivarTodos();
-        LeanTweenController.Instance.AnimarEntrada(mensajeCrear);
+        menuPrincipal.SetActive(false);
+        mensajeCrear.SetActive(true);
+
+        foreach (var img in imagenesMensajes)
+        {
+            img.gameObject.SetActive(true);
+            PopInImagen(img);
+        }
     }
 
     public void MensajeMover()
     {
         DesactivarTodos();
-        LeanTweenController.Instance.AnimarEntrada(mensajeMover);
+        menuPrincipal.SetActive(false);
+        mensajeMover.SetActive(true);
+
+        foreach (var img in imagenesMensajes)
+        {
+            img.gameObject.SetActive(true);
+            PopInImagen(img);
+        }
     }
 
     public void MensajeEliminar()
     {
         DesactivarTodos();
-        LeanTweenController.Instance.AnimarEntrada(mensajeEliminar);
+        menuPrincipal.SetActive(false);
+        mensajeEliminar.SetActive(true);
+
+        foreach (var img in imagenesMensajes)
+        {
+            img.gameObject.SetActive(true);
+            PopInImagen(img);
+        }
     }
 
     public void MensajeRotar()
     {
         DesactivarTodos();
-        LeanTweenController.Instance.AnimarEntrada(mensajeRotar);
+        menuPrincipal.SetActive(false);
+        mensajeRotar.SetActive(true);
+
+        foreach (var img in imagenesMensajes)
+        {
+            img.gameObject.SetActive(true);
+            PopInImagen(img);
+        }
     }
 
-    public void VolverMenuPrincipal()
+    // --- Método para cerrar mensajes con Pop Out ---
+    public void CerrarMensajes()
     {
-        DesactivarTodos();
-        LeanTweenController.Instance.AnimarEntrada(menuPrincipal);
+        foreach (var img in imagenesMensajes)
+        {
+            if (img.gameObject.activeSelf)
+                PopOutImagen(img);
+        }
     }
 }
