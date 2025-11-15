@@ -12,6 +12,7 @@ public class Controlador : MonoBehaviour
     void Start()
     {
         CambiarEstado(new EstadoNeutral());
+        AudioSingleton.Instance.PlayMusic();
     }
 
     void Update()

@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Idiomas_en-US
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: 86490cfa2f4cf784f808bc62ed6d764a, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 14491058176
+    m_Localized: Create
+    m_Metadata:
+      m_Items: []
+  - m_Id: 79083339776
+    m_Localized: Move
+    m_Metadata:
+      m_Items: []
+  - m_Id: 103213170688
+    m_Localized: Rotate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 122129481728
+    m_Localized: Size
+    m_Metadata:
+      m_Items: []
+  - m_Id: 157072228352
+    m_Localized: Remove
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1909821538304
+    m_Localized: Character
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1970882215936
+    m_Localized: Products
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2047956746240
+    m_Localized: Cash Register
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2066269077504
+    m_Localized: Shopping Cart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2188889554944
+    m_Localized: Logo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2612447150080
+    m_Localized: Place the object wherever you want
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2892307890176
+    m_Localized: Select the object you want to move
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3087988948992
+    m_Localized: Select the object you want to rotate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3520551714816
+    m_Localized: Select the object you want to modificate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3714764767232
+    m_Localized: Select the object you want to remove
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

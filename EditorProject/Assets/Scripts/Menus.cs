@@ -11,6 +11,7 @@ public class Menus : MonoBehaviour
     public GameObject mensajeMover;
     public GameObject mensajeEliminar;
     public GameObject mensajeRotar;
+    public GameObject mensajeTamano;
 
     // Arrays para animaciones
     public Button[] botonesMenuPrincipal;
@@ -29,6 +30,16 @@ public class Menus : MonoBehaviour
         // Pop in inicial del menú principal al arrancar el juego
         AnimarBotones(botonesMenuPrincipal);
     }
+     void Start()
+    {
+        menuPrincipal.SetActive(true);
+        menuLateral.SetActive(false);
+        mensajeCrear.SetActive(false);
+        mensajeEliminar.SetActive(false);
+        mensajeMover.SetActive(false);
+        mensajeRotar.SetActive(false);
+        AnimarBotones(botonesMenuPrincipal);
+    }
 
     public void DesactivarTodos()
     {
@@ -38,6 +49,8 @@ public class Menus : MonoBehaviour
         mensajeMover.SetActive(false);
         mensajeEliminar.SetActive(false);
         mensajeRotar.SetActive(false);
+        mensajeTamano.SetActive(false);
+        AnimarBotones(botonesMenuPrincipal);
     }
 
     // --- Animaciones internas ---
@@ -130,13 +143,16 @@ public class Menus : MonoBehaviour
         }
     }
 
-    // --- Método para cerrar mensajes con Pop Out ---
-    public void CerrarMensajes()
+    public void MensajeTamano()
     {
+        DesactivarTodos();
+        menuPrincipal.SetActive(false);
+        mensajeTamano.SetActive(true);
+        
         foreach (var img in imagenesMensajes)
         {
-            if (img.gameObject.activeSelf)
-                PopOutImagen(img);
+            img.gameObject.SetActive(true);
+            PopInImagen(img);
         }
     }
 }

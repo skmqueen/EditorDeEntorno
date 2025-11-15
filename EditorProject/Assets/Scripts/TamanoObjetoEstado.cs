@@ -32,6 +32,7 @@ public class TamanoObjetoEstado : IEstado
             {
                 if (hit.collider.CompareTag(tagSeleccionable))
                 {
+                    AudioSingleton.Instance.PlaySFX(AudioSingleton.Instance.sonidoColocar);
                     objetoSeleccionado = hit.collider.gameObject;
                     Debug.Log("Objeto seleccionado para escalar: " + objetoSeleccionado.name);
                 }

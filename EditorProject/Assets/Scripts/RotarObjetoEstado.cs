@@ -6,7 +6,8 @@ public class RotarObjetoEstado : IEstado
     private string tagSeleccionable = "Seleccionable";
     private GameObject objetoSeleccionado;
 
-    [SerializeField] private float gradosPorFrame = 2f; // Cuántos grados rotar por frame al mantener el clic
+    [SerializeField]
+    private float gradosPorFrame = 2f; // Cuántos grados rotar por frame al mantener el clic
 
     public RotarObjetoEstado(Controlador ctrl)
     {
@@ -16,7 +17,6 @@ public class RotarObjetoEstado : IEstado
     public void Entrar(Controlador ctrl)
     {
         Menus.Instance.MensajeRotar();
-        Debug.Log("Entrando a RotarObjetoEstado: selecciona un objeto.");
     }
 
     public void Ejecutar(Controlador ctrl)
@@ -32,8 +32,9 @@ public class RotarObjetoEstado : IEstado
             {
                 if (hit.collider.CompareTag(tagSeleccionable))
                 {
+                    AudioSingleton.Instance.PlaySFX(AudioSingleton.Instance.sonidoColocar);
                     objetoSeleccionado = hit.collider.gameObject;
-                    Debug.Log("Objeto seleccionado para rotar: " + objetoSeleccionado.name);
+
                 }
             }
         }

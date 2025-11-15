@@ -20,7 +20,7 @@ public class CrearObjetoEstado : IEstado
             objetoInstanciado = GameObject.Instantiate(objetoPrefab);
             objetoInstanciado.layer = 2; // Ignore Raycast mientras lo colocas
 
-            // Hacer transparente 
+            // Hacer transparente mientras lo posicionas
             Renderer rend = objetoInstanciado.GetComponentInChildren<Renderer>();
             if (rend != null)
             {
@@ -38,11 +38,10 @@ public class CrearObjetoEstado : IEstado
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+        // Raycast contra el suelo
         if (Physics.Raycast(ray, out RaycastHit hit, distanciaMaxima, suelo))
         {
-       
             objetoInstanciado.transform.position = hit.point;
-
             Debug.DrawLine(ray.origin, hit.point, Color.green);
         }
         else
@@ -53,6 +52,7 @@ public class CrearObjetoEstado : IEstado
         // Confirmar colocación con clic izquierdo
         if (Input.GetMouseButtonDown(0))
         {
+            AudioSingleton.Instance.PlayColocar();
             // Poner el objeto en sólido (alpha 1)
             Renderer rend = objetoInstanciado.GetComponentInChildren<Renderer>();
             if (rend != null)

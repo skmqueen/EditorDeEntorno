@@ -42,6 +42,7 @@ public class MoverObjetoEstado : IEstado
             // Selección del objeto
             if (Input.GetMouseButtonDown(0))
             {
+                AudioSingleton.Instance.PlaySFX(AudioSingleton.Instance.sonidoColocar);
                 Debug.DrawRay(ray.origin, ray.direction * distanciaMaxima, Color.red, 2f);
 
                 if (Physics.Raycast(ray, out RaycastHit hit, distanciaMaxima))

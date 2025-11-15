@@ -21,7 +21,9 @@ public class EliminarObjetoEstado : IEstado
         if (Camera.main == null) return;
 
         if (Input.GetMouseButtonDown(0))
+        
         {
+            AudioSingleton.Instance.PlaySFX(AudioSingleton.Instance.sonidoColocar);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out RaycastHit hit, 100f))
