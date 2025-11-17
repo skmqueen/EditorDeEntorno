@@ -65,7 +65,7 @@ public class MoverObjetoEstado : IEstado
                 {
                     // Coloca el objeto sobre el punto del raycast
                     objetoSeleccionado.transform.position = hit.point;
-                    Debug.DrawRay(ray.origin, ray.direction * distanciaMaxima, Color.green);
+                    //Debug.DrawRay(ray.origin, ray.direction * distanciaMaxima, Color.green);
                 }
             }
 

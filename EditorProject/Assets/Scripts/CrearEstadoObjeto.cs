@@ -19,15 +19,6 @@ public class CrearObjetoEstado : IEstado
         {
             objetoInstanciado = GameObject.Instantiate(objetoPrefab);
             objetoInstanciado.layer = 2; // Ignore Raycast mientras lo colocas
-
-            // Hacer transparente mientras lo posicionas
-            Renderer rend = objetoInstanciado.GetComponentInChildren<Renderer>();
-            if (rend != null)
-            {
-                Color c = rend.material.color;
-                c.a = 0.3f; // 0 = invisible, 1 = opaco
-                rend.material.color = c;
-            }
         }
     }
 
@@ -46,22 +37,13 @@ public class CrearObjetoEstado : IEstado
         }
         else
         {
-            Debug.DrawRay(ray.origin, ray.direction * distanciaMaxima, Color.red);
+            //Debug.DrawRay(ray.origin, ray.direction * distanciaMaxima, Color.red);
         }
 
         // Confirmar colocación con clic izquierdo
         if (Input.GetMouseButtonDown(0))
         {
             AudioSingleton.Instance.PlayColocar();
-            // Poner el objeto en sólido (alpha 1)
-            Renderer rend = objetoInstanciado.GetComponentInChildren<Renderer>();
-            if (rend != null)
-            {
-                Color c = rend.material.color;
-                c.a = 1f;
-                rend.material.color = c;
-            }
-
             objetoInstanciado.layer = 0; // Default
             controlador.CambiarEstado(new EstadoNeutral());
         }

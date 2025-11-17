@@ -28,7 +28,8 @@ public class Menus : MonoBehaviour
         Instance = this;
 
         // Pop in inicial del menú principal al arrancar el juego
-        AnimarBotones(botonesMenuPrincipal);
+        
+        //AnimarBotones(botonesMenuPrincipal);
     }
      void Start()
     {
@@ -53,7 +54,7 @@ public class Menus : MonoBehaviour
         AnimarBotones(botonesMenuPrincipal);
     }
 
-    // --- Animaciones internas ---
+    //Animaciones
     private void AnimarBotones(Button[] btns)
     {
         for (int i = 0; i < btns.Length; i++)
@@ -80,7 +81,7 @@ public class Menus : MonoBehaviour
             .setOnComplete(() => img.gameObject.SetActive(false));
     }
 
-    // --- Funciones como en tu script original ---
+    //Funciones
 
     public void PulsarCrear()
     {

@@ -8,6 +8,8 @@ public class RotarObjetoEstado : IEstado
 
     [SerializeField]
     private float gradosPorFrame = 2f; // Cuántos grados rotar por frame al mantener el clic
+    [SerializeField] 
+    private float distanciaMaxima = 100f; // Distancia máxima para raycast
 
     public RotarObjetoEstado(Controlador ctrl)
     {
@@ -28,7 +30,7 @@ public class RotarObjetoEstado : IEstado
         // Selección del objeto
         if (objetoSeleccionado == null && Input.GetMouseButtonDown(0))
         {
-            if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+            if (Physics.Raycast(ray, out RaycastHit hit, distanciaMaxima))
             {
                 if (hit.collider.CompareTag(tagSeleccionable))
                 {

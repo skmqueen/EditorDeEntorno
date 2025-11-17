@@ -4,11 +4,9 @@ public class AudioSingleton : MonoBehaviour
 {
     public static AudioSingleton Instance;
 
-    [Header("Audio Sources")]
     public AudioSource musicSource;
     public AudioSource sfxSource;
 
-    [Header("Audio Clips")]
     public AudioClip musicaFondo;
     public AudioClip sonidoClick;
     public AudioClip sonidoCancelar;
@@ -34,7 +32,6 @@ public class AudioSingleton : MonoBehaviour
         PlayMusic();
     }
 
-    // ====== Funciones para reproducir sonidos ======
     public void PlaySFX(AudioClip clip)
     {
         if (clip != null)

@@ -8,6 +8,8 @@ public class TamanoObjetoEstado : IEstado
 
     // Factor de escala
     private float xyz = 1.05f;
+    [SerializeField] 
+    private float distanciaMaxima = 100f; // Distancia máxima para raycast
 
     public TamanoObjetoEstado(Controlador ctrl)   // <-- El nombre coincide con la clase
     {
@@ -28,13 +30,12 @@ public class TamanoObjetoEstado : IEstado
         // Seleccionar objeto
         if (objetoSeleccionado == null && Input.GetMouseButtonDown(0))
         {
-            if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+            if (Physics.Raycast(ray, out RaycastHit hit, distanciaMaxima))
             {
                 if (hit.collider.CompareTag(tagSeleccionable))
                 {
                     AudioSingleton.Instance.PlaySFX(AudioSingleton.Instance.sonidoColocar);
                     objetoSeleccionado = hit.collider.gameObject;
-                    Debug.Log("Objeto seleccionado para escalar: " + objetoSeleccionado.name);
                 }
             }
         }

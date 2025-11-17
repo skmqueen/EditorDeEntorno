@@ -4,6 +4,8 @@ public class EliminarObjetoEstado : IEstado
 {
     private Controlador controlador;
     private string tagSeleccionable = "Seleccionable";
+    [SerializeField] 
+    private float distanciaMaxima = 100f; // Distancia máxima para raycast
 
     public EliminarObjetoEstado(Controlador ctrl)
     {
@@ -26,7 +28,7 @@ public class EliminarObjetoEstado : IEstado
             AudioSingleton.Instance.PlaySFX(AudioSingleton.Instance.sonidoColocar);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+            if (Physics.Raycast(ray, out RaycastHit hit, distanciaMaxima))
             {
                 if (hit.collider.CompareTag(tagSeleccionable))
                 {

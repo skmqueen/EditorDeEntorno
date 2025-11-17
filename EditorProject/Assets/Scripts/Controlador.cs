@@ -8,6 +8,9 @@ public class Controlador : MonoBehaviour
 
     private IEstado estadoActual;
     private GameObject prefabSeleccionado;
+    
+    [SerializeField]
+    Grid grid;
 
     void Start()
     {
@@ -33,7 +36,7 @@ public class Controlador : MonoBehaviour
     public void SeleccionarPrefab(int indice)
     {
         if (indice < 0 || indice >= objetosPrefabs.Length) return;
-        
+
         prefabSeleccionado = objetosPrefabs[indice];
         CambiarEstado(new CrearObjetoEstado(prefabSeleccionado, sueloMask));
     }
