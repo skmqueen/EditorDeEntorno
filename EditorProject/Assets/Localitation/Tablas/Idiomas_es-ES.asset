@@ -78,6 +78,10 @@ MonoBehaviour:
     m_Localized: Selecciona el objeto que deseas eliminar
     m_Metadata:
       m_Items: []
+  - m_Id: 1539669086699520
+    m_Localized: "\xBFEst\xE1s seguro de que quieres eliminarlo?"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

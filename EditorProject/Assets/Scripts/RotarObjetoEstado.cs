@@ -6,14 +6,13 @@ public class RotarObjetoEstado : IEstado
     private string tagSeleccionable = "Seleccionable";
     private GameObject objetoSeleccionado;
 
-    [SerializeField]
-    private float gradosPorFrame = 2f; // Cuántos grados rotar por frame al mantener el clic
-    [SerializeField] 
-    private float distanciaMaxima = 100f; // Distancia máxima para raycast
+    private LayerMask suelo;           // Igual que en Crear
+    private float distanciaMaxima = 100f;
 
-    public RotarObjetoEstado(Controlador ctrl)
+    public RotarObjetoEstado(Controlador ctrl, LayerMask sueloMask)
     {
         controlador = ctrl;
+        suelo = sueloMask;            // Guardamos el layer del suelo
     }
 
     public void Entrar(Controlador ctrl)
@@ -36,20 +35,39 @@ public class RotarObjetoEstado : IEstado
                 {
                     AudioSingleton.Instance.PlaySFX(AudioSingleton.Instance.sonidoColocar);
                     objetoSeleccionado = hit.collider.gameObject;
-
                 }
             }
         }
 
-        // Rotación mientras se mantiene clic izquierdo
+        // Rotación
         if (objetoSeleccionado != null)
         {
-            if (Input.GetMouseButton(0)) // Mientras se presiona el botón izquierdo
+            if (Input.GetMouseButton(0))
             {
-                objetoSeleccionado.transform.Rotate(0f, gradosPorFrame, 0f);
+                // MISMO RAYCAST QUE EN CREAR → ahora sí funciona
+                if (Physics.Raycast(ray, out RaycastHit hit, distanciaMaxima, suelo))
+                {
+                    Vector3 targetPosition = hit.point;
+                    Vector3 direction = targetPosition - objetoSeleccionado.transform.position;
+
+                    direction.y = 0f;
+
+                    if (direction.sqrMagnitude > 0.0001f)
+                    {
+                        Quaternion rot = Quaternion.LookRotation(direction);
+                        objetoSeleccionado.transform.rotation =
+                            Quaternion.Euler(0f, rot.eulerAngles.y, 0f);
+                    }
+
+                    Debug.DrawLine(ray.origin, hit.point, Color.green);
+                }
+                else
+                {
+                    Debug.DrawRay(ray.origin, ray.direction * distanciaMaxima, Color.red);
+                }
             }
 
-            // Finalizar rotación con clic derecho
+            // Salir
             if (Input.GetMouseButtonDown(1))
             {
                 objetoSeleccionado = null;
@@ -64,3 +82,4 @@ public class RotarObjetoEstado : IEstado
         Menus.Instance.DesactivarTodos();
     }
 }
+

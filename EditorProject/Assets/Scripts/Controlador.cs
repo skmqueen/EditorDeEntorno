@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Controlador : MonoBehaviour
 {
+    //Agregamos todos esos elementos importantes en el videojuego
     public GameObject[] objetosPrefabs;
     public LayerMask sueloMask;
     public LayerMask seleccionableMask; // solo prefabs que se pueden mover/rotar/eliminar
@@ -11,6 +12,9 @@ public class Controlador : MonoBehaviour
     
     [SerializeField]
     Grid grid;
+    [SerializeField] 
+    public GameObject gridVisual;
+
 
     void Start()
     {
@@ -20,12 +24,14 @@ public class Controlador : MonoBehaviour
 
     void Update()
     {
+        //Si un estado está activo, se ejecuta
         if (estadoActual != null)
             estadoActual.Ejecutar(this);
     }
 
     public void CambiarEstado(IEstado nuevoEstado)
     {
+        //Al empezar la función, si hay estado activo se sale y se abre el nuevo estado
         if (estadoActual != null)
             estadoActual.Salir(this);
 
@@ -52,7 +58,7 @@ public class Controlador : MonoBehaviour
     }
     public void PulsarRotar()
     {
-        CambiarEstado(new RotarObjetoEstado(this));
+        CambiarEstado(new RotarObjetoEstado(this, sueloMask));
     }
     public void PulsarTamano()
     {
@@ -62,4 +68,32 @@ public class Controlador : MonoBehaviour
     {
         CambiarEstado(new EliminarObjetoEstado(this));
     }
+    public void AumentarTamano()
+    {
+        if (estadoActual is TamanoObjetoEstado t)
+            t.Aumentar();
+    }
+    public void DisminuirTamano()
+    {
+        if (estadoActual is TamanoObjetoEstado t)
+            t.Disminuir();
+    }
+    public void SalirAlEstadoNeutral()
+    {
+        CambiarEstado(new EstadoNeutral());
+        Menus.Instance.DesactivarTodos();
+    }
+    public void DestruirObjeto()
+    {
+        if(estadoActual is EliminarObjetoEstado e)
+            e.Destruir();
+
+    }
+    public void ConservarObjeto()
+    {
+        if(estadoActual is EliminarObjetoEstado e)
+            e.Conservar();
+
+    }
+
 }

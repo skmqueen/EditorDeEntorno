@@ -78,6 +78,10 @@ MonoBehaviour:
     m_Localized: Select the object you want to remove
     m_Metadata:
       m_Items: []
+  - m_Id: 1539669086699520
+    m_Localized: Do you really want to delete it?
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

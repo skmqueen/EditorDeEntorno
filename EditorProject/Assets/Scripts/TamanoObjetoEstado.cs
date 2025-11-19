@@ -6,20 +6,16 @@ public class TamanoObjetoEstado : IEstado
     private string tagSeleccionable = "Seleccionable";
     private GameObject objetoSeleccionado;
 
-    // Factor de escala
     private float xyz = 1.05f;
     [SerializeField] 
-    private float distanciaMaxima = 100f; // Distancia máxima para raycast
+    private float distanciaMaxima = 100f;
 
-    public TamanoObjetoEstado(Controlador ctrl)   // <-- El nombre coincide con la clase
+    public TamanoObjetoEstado(Controlador ctrl)
     {
         controlador = ctrl;
     }
 
-    public void Entrar(Controlador ctrl)
-    {
-        //Menus.Instance.MensajeTamano();
-    }
+    public void Entrar(Controlador ctrl) { }
 
     public void Ejecutar(Controlador ctrl)
     {
@@ -27,41 +23,41 @@ public class TamanoObjetoEstado : IEstado
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        // Seleccionar objeto
+        // Seleccionar con clic
         if (objetoSeleccionado == null && Input.GetMouseButtonDown(0))
         {
             if (Physics.Raycast(ray, out RaycastHit hit, distanciaMaxima))
             {
                 if (hit.collider.CompareTag(tagSeleccionable))
-                {
-                    AudioSingleton.Instance.PlaySFX(AudioSingleton.Instance.sonidoColocar);
+                    Menus.Instance.BotonesTamano();
                     objetoSeleccionado = hit.collider.gameObject;
-                }
             }
         }
 
-        if (objetoSeleccionado != null)
+        // Salir con clic derecho
+        if (objetoSeleccionado != null && Input.GetMouseButtonDown(1))
         {
-            float scroll = Input.mouseScrollDelta.y;
-
-            if (scroll > 0)
-                objetoSeleccionado.transform.localScale *= xyz;
-
-            else if (scroll < 0)
-                objetoSeleccionado.transform.localScale /= xyz;
-
-            // Salir con clic derecho
-            if (Input.GetMouseButtonDown(1))
-            {
-                objetoSeleccionado = null;
-                ctrl.CambiarEstado(new EstadoNeutral());
-            }
+            objetoSeleccionado = null;
+            ctrl.CambiarEstado(new EstadoNeutral());
         }
+    }
+
+    // Aumentar tamaño
+    public void Aumentar()
+    {
+        if (objetoSeleccionado != null)
+            objetoSeleccionado.transform.localScale *= xyz;
+    }
+
+    // Disminuir tamaño
+    public void Disminuir()
+    {
+        if (objetoSeleccionado != null)
+            objetoSeleccionado.transform.localScale /= xyz;
     }
 
     public void Salir(Controlador ctrl)
     {
         objetoSeleccionado = null;
-        Menus.Instance.DesactivarTodos();
     }
 }

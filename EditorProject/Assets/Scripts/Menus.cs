@@ -12,6 +12,10 @@ public class Menus : MonoBehaviour
     public GameObject mensajeEliminar;
     public GameObject mensajeRotar;
     public GameObject mensajeTamano;
+    public GameObject botonesTamano;
+    public GameObject exit;
+    public GameObject yesOrNo;
+
 
     // Arrays para animaciones
     public Button[] botonesMenuPrincipal;
@@ -39,6 +43,9 @@ public class Menus : MonoBehaviour
         mensajeEliminar.SetActive(false);
         mensajeMover.SetActive(false);
         mensajeRotar.SetActive(false);
+        botonesTamano.SetActive(false);
+        exit.SetActive(false);
+        yesOrNo.SetActive(false);
         AnimarBotones(botonesMenuPrincipal);
     }
 
@@ -51,6 +58,9 @@ public class Menus : MonoBehaviour
         mensajeEliminar.SetActive(false);
         mensajeRotar.SetActive(false);
         mensajeTamano.SetActive(false);
+        botonesTamano.SetActive(false);
+        exit.SetActive(false);
+        yesOrNo.SetActive(false);
         AnimarBotones(botonesMenuPrincipal);
     }
 
@@ -110,6 +120,7 @@ public class Menus : MonoBehaviour
         DesactivarTodos();
         menuPrincipal.SetActive(false);
         mensajeMover.SetActive(true);
+        exit.SetActive(true);
 
         foreach (var img in imagenesMensajes)
         {
@@ -117,12 +128,28 @@ public class Menus : MonoBehaviour
             PopInImagen(img);
         }
     }
+    
 
     public void MensajeEliminar()
     {
         DesactivarTodos();
         menuPrincipal.SetActive(false);
         mensajeEliminar.SetActive(true);
+        exit.SetActive(true);
+
+        foreach (var img in imagenesMensajes)
+        {
+            img.gameObject.SetActive(true);
+            PopInImagen(img);
+        }
+    }
+     public void SiONo()
+    {
+        DesactivarTodos();
+        menuPrincipal.SetActive(false);
+        mensajeEliminar.SetActive(false);
+        yesOrNo.SetActive(true);
+        exit.SetActive(false);
 
         foreach (var img in imagenesMensajes)
         {
@@ -136,6 +163,7 @@ public class Menus : MonoBehaviour
         DesactivarTodos();
         menuPrincipal.SetActive(false);
         mensajeRotar.SetActive(true);
+        exit.SetActive(true);
 
         foreach (var img in imagenesMensajes)
         {
@@ -149,7 +177,22 @@ public class Menus : MonoBehaviour
         DesactivarTodos();
         menuPrincipal.SetActive(false);
         mensajeTamano.SetActive(true);
+        exit.SetActive(true);
         
+        foreach (var img in imagenesMensajes)
+        {
+            img.gameObject.SetActive(true);
+            PopInImagen(img);
+        }
+    }
+
+        public void BotonesTamano()
+    {
+        DesactivarTodos();
+        menuPrincipal.SetActive(false);
+        botonesTamano.SetActive(true);
+        exit.SetActive(true);
+
         foreach (var img in imagenesMensajes)
         {
             img.gameObject.SetActive(true);
