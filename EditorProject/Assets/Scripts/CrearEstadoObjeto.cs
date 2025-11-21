@@ -7,26 +7,24 @@ public class CrearObjetoEstado : IEstado
     private LayerMask suelo;
     private float distanciaMaxima = 100f;
 
-    // --------- NUEVO: Prefab fantasma para previsualización ----------
+   
     // private GameObject prefabFantasma;      // Prefab de previsualización (transparente)
     // private GameObject objetoFantasmaInstanciado; // Instancia del fantasma
-    // -----------------------------------------------------------------
 
     public CrearObjetoEstado(GameObject prefab, LayerMask sueloMask /*, GameObject fantasmaPrefab = null*/)
     {
         objetoPrefab = prefab;
         suelo = sueloMask;
 
-        // --------- NUEVO: Asignar prefab fantasma ----------
         // prefabFantasma = fantasmaPrefab;
-        // ----------------------------------------------------
+
     }
 
     public void Entrar(Controlador controlador)
     {
         if (objetoInstanciado == null && objetoPrefab != null)
         {
-            // Instanciamos el prefab final (podrías instanciar solo el fantasma aquí)
+            // Instanciamos el prefab final 
             objetoInstanciado = GameObject.Instantiate(objetoPrefab);
             objetoInstanciado.layer = 2; // Ignore Raycast mientras se instancia
 
@@ -45,8 +43,9 @@ public class CrearObjetoEstado : IEstado
         }
 
         //MOSTRAR GRID VISUAL
-        if (controlador.gridVisual != null)
+        /*if (controlador.gridVisual != null)
             controlador.gridVisual.SetActive(true);
+        */
 
     }
 
@@ -133,8 +132,9 @@ public class CrearObjetoEstado : IEstado
         objetoInstanciado = null;
 
         //OCULTAR GRID VISUAL 
-        if (controlador.gridVisual != null)
-            controlador.gridVisual.SetActive(false);
+        /*if (controlador.gridVisual != null)
+          controlador.gridVisual.SetActive(false);
+        */
 
     }
 }

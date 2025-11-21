@@ -43,8 +43,7 @@ public class RotarObjetoEstado : IEstado
         if (objetoSeleccionado != null)
         {
             if (Input.GetMouseButton(0))
-            {
-                // MISMO RAYCAST QUE EN CREAR → ahora sí funciona
+            
                 if (Physics.Raycast(ray, out RaycastHit hit, distanciaMaxima, suelo))
                 {
                     Vector3 targetPosition = hit.point;
@@ -74,7 +73,7 @@ public class RotarObjetoEstado : IEstado
                 ctrl.CambiarEstado(new EstadoNeutral());
             }
         }
-    }
+    
 
     public void Salir(Controlador ctrl)
     {

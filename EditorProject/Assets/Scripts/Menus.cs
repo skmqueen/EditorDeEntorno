@@ -15,12 +15,14 @@ public class Menus : MonoBehaviour
     public GameObject botonesTamano;
     public GameObject exit;
     public GameObject yesOrNo;
+    public GameObject menuColores;
 
 
     // Arrays para animaciones
     public Button[] botonesMenuPrincipal;
     public Button[] botonesMenuLateral;
     public Image[] imagenesMensajes;
+    public Button[] botonesColores;
 
     private void Awake()
     {
@@ -46,6 +48,7 @@ public class Menus : MonoBehaviour
         botonesTamano.SetActive(false);
         exit.SetActive(false);
         yesOrNo.SetActive(false);
+        menuColores.SetActive(false);
         AnimarBotones(botonesMenuPrincipal);
     }
 
@@ -61,6 +64,7 @@ public class Menus : MonoBehaviour
         botonesTamano.SetActive(false);
         exit.SetActive(false);
         yesOrNo.SetActive(false);
+        menuColores.SetActive(false);
         AnimarBotones(botonesMenuPrincipal);
     }
 
@@ -192,6 +196,20 @@ public class Menus : MonoBehaviour
         menuPrincipal.SetActive(false);
         botonesTamano.SetActive(true);
         exit.SetActive(true);
+
+        foreach (var img in imagenesMensajes)
+        {
+            img.gameObject.SetActive(true);
+            PopInImagen(img);
+        }
+    }
+
+        public void PulsarColor()
+    {
+        DesactivarTodos();
+        menuPrincipal.SetActive(false);
+        menuColores.SetActive(true);
+        exit.SetActive(false);
 
         foreach (var img in imagenesMensajes)
         {

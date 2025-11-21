@@ -4,11 +4,13 @@ public class Controlador : MonoBehaviour
 {
     //Agregamos todos esos elementos importantes en el videojuego
     public GameObject[] objetosPrefabs;
+    public Material[] materials;
     public LayerMask sueloMask;
     public LayerMask seleccionableMask; // solo prefabs que se pueden mover/rotar/eliminar
 
     private IEstado estadoActual;
     private GameObject prefabSeleccionado;
+    private Material materialSeleccionado;
     
     [SerializeField]
     Grid grid;
@@ -51,7 +53,21 @@ public class Controlador : MonoBehaviour
     {
         return prefabSeleccionado;
     }
-    
+
+    public void SeleccionarColor(int indice)
+    {
+        if (indice < 0 || indice >= materials.Length) return;
+
+        materialSeleccionado = materials[indice];
+        CambiarEstado(new ColorObjetoEstado(materialSeleccionado, sueloMask));
+    }
+
+    public GameObject ObtenerColorSeleccionado()
+    {
+        return prefabSeleccionado;
+    }
+
+
     public void PulsarMover()
     {
         CambiarEstado(new MoverObjetoEstado(this, sueloMask));
